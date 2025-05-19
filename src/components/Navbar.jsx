@@ -121,8 +121,16 @@ export const Navbar = () => {
               <a
                 key={key}
                 href={item.href}
+                onClick={(e) => {
+                  setIsMenuOpen(false)
+                  if (window.location.pathname.includes("/blog/")) {
+                    // Prevent default navigation
+                    e.preventDefault();
+                    // Redirect to the index page
+                    window.location.href = "/";
+                  }
+                }}
                 className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </a>
