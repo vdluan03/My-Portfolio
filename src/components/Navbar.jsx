@@ -10,9 +10,15 @@ const navItems = [
   { name: "Contact", href: "#contact" },
 ];
 
+const blogSubItems = [
+  { name: "Học ngoại ngữ", slug: "language-learning" },
+  { name: "Hành trình của mình", slug: "my-journey" },
+]
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBlogDropDownOpen, setIsBlogDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +31,7 @@ export const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed w-full z-40 transition-all duration-300",
+        "fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border",
         isScrolled ? "py-3 bg-background/80 backdrop-blur-md shadow-xs" : "py-5"
       )}
     >
@@ -46,12 +52,50 @@ export const Navbar = () => {
             <a
               key={key}
               href={item.href}
+              onClick={(e) => {
+                if (window.location.pathname.includes("/blog/")) {
+                  // Prevent default navigation
+                  e.preventDefault();
+                  // Redirect to the index page
+                  window.location.href = "/";
+                }
+              }}
               className="text-foreground/80 hover:text-primary transition-colors duration-300"
             >
               {item.name}
             </a>
           ))}
         </div>
+
+        {/* Blog Dropdown */}
+        <div
+          className="relative group"
+          onMouseEnter={() => setIsBlogDropdownOpen(true)}
+          onMouseLeave={() => setIsBlogDropdownOpen(false)}
+        >
+          {/* Nút Blog */}
+          <button
+            className="text-foreground/80 hover:text-primary transition-colors duration-300 px-1"
+          >
+            Blog
+          </button>
+
+          {/* Dropdown */}
+          {isBlogDropDownOpen && (
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 mt-2 bg-background shadow-md rounded-md py-2 w-48 z-50">
+              {blogSubItems.map((subItem, index) => (
+                <a
+                  key={index}
+                  href={`/blog/${subItem.slug}`}
+                  className="block px-4 py-2 text-foreground/80 hover:bg-muted hover:text-primary transition-colors duration-200"
+                >
+                  {subItem.name}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+
 
         {/* mobile nav */}
 
