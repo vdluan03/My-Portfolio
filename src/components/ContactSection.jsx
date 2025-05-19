@@ -84,7 +84,7 @@ export const ContactSection = () => {
                 <a href="#" target="_blank">
                   <Linkedin />
                 </a>
-                <a href="#" target="_blank">
+                <a href="https://www.facebook.com/duyluan03/" target="_blank">
                   <Facebook />
                 </a>
               </div>
